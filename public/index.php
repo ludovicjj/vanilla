@@ -1,4 +1,6 @@
 <?php
+
+use App\Blog\BlobModule;
 use App\Kernel;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
@@ -16,6 +18,9 @@ $requestCreator = new ServerRequestCreator(
 $request = $requestCreator->fromGlobals();
 
 
-$kernel = new Kernel();
+$kernel = new Kernel([
+    BlobModule::class
+]);
 $response = $kernel->run($request);
+
 (new SapiEmitter())->emit($response);

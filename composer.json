@@ -23,6 +23,7 @@
     "require": {
         "nyholm/psr7": "^1.5",
         "nyholm/psr7-server": "^1.0",
-        "laminas/laminas-httphandlerrunner": "^2.2"
+        "laminas/laminas-httphandlerrunner": "^2.2",
+        "altorouter/altorouter": "^2.0"
     }
 }
