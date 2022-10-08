@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Framework;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

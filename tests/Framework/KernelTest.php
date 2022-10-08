@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Framework;
 
 use App\Blog\BlobModule;
-use App\Kernel;
-use App\Tests\Module\ErrorModule;
-use App\Tests\Module\StringModule;
+use App\Framework\Kernel;
+use App\Tests\Framework\Module\ErrorModule;
+use App\Tests\Framework\Module\StringModule;
 use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

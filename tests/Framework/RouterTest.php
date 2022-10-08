@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Framework;
 
+use App\Framework\Router;
+use App\Framework\Router\Route;
 use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use App\Router;
 
 class RouterTest extends TestCase
 {
@@ -19,7 +20,7 @@ class RouterTest extends TestCase
         $this->router->add('GET', "/foo", function() {return 'hello';}, 'app_foo');
         $route = $this->router->match($request);
 
-        $this->assertInstanceOf(Router\Route::class, $route);
+        $this->assertInstanceOf(Route::class, $route);
     }
 
     public function testRouteMatchFailWithInvalidPath(): void
@@ -46,7 +47,7 @@ class RouterTest extends TestCase
         $this->router->add('GET', "/foo/[cSlug:slug]", function() {return 'hello';}, 'app_foo');
         $route = $this->router->match($request);
 
-        $this->assertInstanceOf(Router\Route::class, $route);
+        $this->assertInstanceOf(Route::class, $route);
         $this->assertEquals('app_foo', $route->getName());
         $this->assertEquals(['slug' => 'my-slug'], $route->getParameters());
         $this->assertEquals('hello', call_user_func_array($route->getCallback(), [$request]));

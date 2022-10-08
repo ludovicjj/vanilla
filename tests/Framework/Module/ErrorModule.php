@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Module;
+namespace App\Tests\Framework\Module;
 
-use App\Router;
+use App\Framework\Router;
 
 class ErrorModule
 {

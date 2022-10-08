@@ -2,7 +2,7 @@
 
 namespace App\Blog;
 
-use App\Router;
+use App\Framework\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
 class BlobModule

@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Framework;
 
 use AltoRouter;
-use App\Router\Route;
+use App\Framework\Router\Route;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
