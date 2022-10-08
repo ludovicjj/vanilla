@@ -17,7 +17,7 @@ class Router
 
     public function add(string $method, string $path, callable $callable, string $name)
     {
-        $this->router->addMatchTypes(['cSlug' => '[a-zA-Z\-]+']);
+        $this->router->addMatchTypes(['cSlug' => '[a-zA-Z0-9\-]+']);
         $this->router->map($method, $path, $callable, $name);
     }
 

@@ -4,7 +4,9 @@ namespace App\Tests\Framework;
 
 use App\Blog\BlobModule;
 use App\Framework\Kernel;
+use App\Framework\Renderer;
 use App\Tests\Framework\Module\ErrorModule;
+use App\Tests\Framework\Module\ResponseModule;
 use App\Tests\Framework\Module\StringModule;
 use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
@@ -22,20 +24,20 @@ class KernelTest extends TestCase
         $this->assertEquals(301, $response->getStatusCode());
     }
 
-    public function testModuleBlog(): void
+    public function testBlogModule(): void
     {
+        $renderer = new Renderer();
+        $renderer->addPath(dirname(__DIR__).'/../template');
         $kernel = new Kernel([
             BlobModule::class
-        ]);
+        ], ['renderer' => $renderer]);
 
         $request = new ServerRequest('GET', '/blog');
         $response = $kernel->run($request);
-        $this->assertEquals('<h1>Welcome to blog</h1>', (string)$response->getBody());
         $this->assertEquals(200, $response->getStatusCode());
 
         $request = new ServerRequest('GET', '/blog/hello-world');
         $response = $kernel->run($request);
-        $this->assertEquals('<h1>Post: hello-world</h1>', (string)$response->getBody());
         $this->assertEquals(200, $response->getStatusCode());
     }
 
@@ -61,5 +63,28 @@ class KernelTest extends TestCase
         $response = $kernel->run($request);
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('a simple string', (string)$response->getBody());
+    }
+
+    public function testResponseModule(): void
+    {
+        $kernel = new Kernel([
+            ResponseModule::class
+        ]);
+
+        $request = new ServerRequest('GET', '/response');
+        $response = $kernel->run($request);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('a simple response', (string)$response->getBody());
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testRunWithInvalidRequestUri(): void
+    {
+        $kernel = new Kernel([]);
+
+        $request = new ServerRequest('GET', '/foo');
+        $response = $kernel->run($request);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals(404, $response->getStatusCode());
     }
 }
